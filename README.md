@@ -1,8 +1,6 @@
 # 💡 Innovize: AI-Powered Innovation Platform
 
-<div align="center">
-  <img src="[https://raw.githubusercontent.com/user-attachments/assets/53545b7f-a631-4e6f-827d-0e42fce81a5c](https://github.com/Rajeev-08/Innovize/blob/eac62bf17e7538231e9479c3b83c9ef0eca45af9/Screenshot.png)" alt="Innovize Banner" width="800"/>
-</div>
+
 
 <p align="center">
   <strong>Transform raw ideas into refined concepts.</strong>
