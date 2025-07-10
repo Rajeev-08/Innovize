@@ -1,0 +1,10 @@
+flask
+python-dotenv
+google-generativeai
+pandas
+scikit-learn
+plotly
+PyPDF2
+Pillow
+pytesseract
+werkzeug

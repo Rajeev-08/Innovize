@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Analysis for: {{ idea.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📊 AI Analysis Results</h1>
+            <p>For your idea: <strong>{{ idea.title }}</strong></p>
+        </header>
+
+        <main class="results-grid">
+            <!-- Scorecard -->
+            <div class="result-card">
+                <h3>🤖 AI-Powered Feasibility Scorecard</h3>
+                <div class="scorecard">
+                    {% for key, value in idea.evaluation.scorecard.items() %}
+                    <div class="score-item">
+                        <h4>{{ key.replace('_', ' ')|title }}</h4>
+                        <div class="score-bar-container">
+                            <div class="score-bar" style=`width: 
+                            {{value.score}}*10;`>{value.score}/10</div>
+                        </div>
+                        <p class="reasoning">{{ value.reasoning }}</p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Suggestions -->
+            <div class="result-card">
+                <h3>✍️ AI Suggestions for Enhancement</h3>
+                <ul class="suggestions">
+                    {% for suggestion in idea.suggestions.suggestions %}
+                    <li>{{ suggestion }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>Strengths & Weaknesses</h3>
+                <div class="summary">
+                    <div class="strengths">
+                        <strong>👍 Strengths:</strong>
+                        <ul>
+                            {% for strength in idea.evaluation.summary.strengths %}
+                            <li>{{ strength }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="weaknesses">
+                        <strong>👎 Weaknesses:</strong>
+                        <ul>
+                            {% for weakness in idea.evaluation.summary.weaknesses %}
+                            <li>{{ weakness }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cluster Map -->
+            <div class="visualization-container full-width">
+                <h2>🧠 Updated Idea Cluster Map</h2>
+                <div id="cluster-plot"></div>
+                {% if not cluster_data %}
+                <p class="placeholder-text">Not enough ideas submitted yet for clustering.</p>
+                {% endif %}
+            </div>
+        </main>
+        
+        <div class="footer-nav">
+            <a href="{{ url_for('index') }}" class="submit-btn">← Back to Home / Submit Another Idea</a>
+        </div>
+    </div>
+
+    <script>
+        const clusterData = {cluster_datatojson };
+        if (clusterData) {
+            const data = [{
+                x: clusterData.x,
+                y: clusterData.y,
+                mode: 'markers+text',
+                type: 'scatter',
+                text: clusterData.text,
+                textposition: 'top center',
+                marker: { 
+                    size: 12,
+                    color: clusterData.cluster,
+                    colorscale: 'Viridis',
+                    showscale: true,
+                    line: {
+                        color: 'black',
+                        width: clusterData.x.map((_, i) => (clusterData.text[i] === "{{ idea.title }}" ? 2 : 0))
+                    }
+                }
+            }];
+
+            const layout = {
+                title: 'Semantic Clusters of Submitted Ideas (Your idea is highlighted)',
+                xaxis: { title: 'UMAP Dimension 1', showticklabels: false, zeroline: false },
+                yaxis: { title: 'UMAP Dimension 2', showticklabels: false, zeroline: false },
+                hovermode: 'closest'
+            };
+
+            Plotly.newPlot('cluster-plot', data, layout);
+        }
+    </script>
+</body>
+</html>

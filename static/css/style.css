@@ -1,0 +1,47 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card-header h4 {
+    font-weight: 300;
+}
+
+.idea-card .btn-link {
+    color: #212529;
+    font-weight: 500;
+}
+
+.idea-card .btn-link:hover {
+    color: #0d6efd;
+}
+
+.idea-title {
+    font-size: 1.1rem;
+}
+
+.scorecard .progress {
+    background-color: #e9ecef;
+}
+
+.scorecard .progress-bar {
+    background-color: #0d6efd;
+    font-weight: bold;
+    color: white;
+}
+
+.suggestion-box {
+    background-color: #eef7ff;
+    border-left: 4px solid #0d6efd;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+#record-btn i {
+    color: #dc3545;
+}
+
+#recording-status {
+    font-style: italic;
+    color: #6c757d;
+}
